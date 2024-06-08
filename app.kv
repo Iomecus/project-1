@@ -1,0 +1,175 @@
+MyLayout:
+    screen_manager: screen_manager
+    in_creation_training_name: in_creation_training_name
+    activity_list: activity_list
+    trainings_list: trainings_list
+    ScreenManager:
+        id: screen_manager
+        Screen:
+            id: home
+            name: 'home_screen'
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 0, 0, 0, 20
+                Label:
+                    size_hint: 1, 0.2
+                    text: "Your trainings"
+                    bold: True
+                    font_size: 30
+                ScrollView:
+                    MDList:
+                        id: trainings_list
+                MDFillRoundFlatButton:
+                    text: "+"
+                    font_size: 100
+                    bold: True
+                    size_hint: 0.35, 0.20
+                    pos_hint: {'center_x': 0.5}
+                    on_release: root.open_new_training_popup()
+        
+        Screen:
+            id: creation
+            name: 'creation_screen'
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 0, 0, 0, 20
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint: 1, 0.1
+                    Label:
+                        id: in_creation_training_name
+                        size_hint: 1, 0.2
+                        bold: True
+                        font_size: 30
+                    MDFillRoundFlatButton:
+                        text: '='
+                        font_size: 100
+                        bold: True
+                        size_hint: 0.35, 0.4
+                        pos_hint: {'center_x': 0.5}
+                        on_release: root.training_creation_finished()
+                ScrollView:
+                    MDList:
+                        id: activity_list
+                MDFillRoundFlatButton:
+                    text: "+"
+                    font_size: 100
+                    bold: True
+                    size_hint: 0.35, 0.20
+                    pos_hint: {'center_x': 0.5}
+                    on_release: root.open_new_activity_popup()
+        
+        Screen:
+            id: screen2
+            name: 'screen2'
+            MDRoundFlatButton:
+                text: "This is Screen 2 \n Go to Screen 1"
+                size_hint: 0.4, 0.1
+                pos_hint: {'x': 0.5, "y": 0.5}
+                on_press: root.switch_screen("home_screen")
+
+
+<NewActivityPopup>:
+    name_input: name_input
+    hour_input: hour_input
+    minute_input: minute_input
+    second_input: second_input
+    Label:
+        pos_hint: {"x": -0.2, "top":1.4}
+        text:"Training's name :"
+    TextInput:
+        id: name_input
+        background_color: '#282828'
+        foreground_color: (1, 1, 1, 1)
+        size_hint: 1, 0.15
+        pos_hint: {"x": 0, "top":0.8}
+        font_size: 15
+        multiline: False
+    BoxLayout:
+        orientation: 'horizontal'
+        pos_hint: {"x": 0, "top":0.6}
+        TextInput:
+            id: hour_input
+            text: "00"
+            background_color: '#282828'
+            foreground_color: (1, 1, 1, 1)
+            padding: 10,5,0,0
+            size_hint: 0.6, 0.15
+            pos_hint: {"x": 0.2, "top":0.95}
+            font_size: 15
+            input_type: "number"
+            multiline: False
+        Label:
+            text: "h"
+            pos_hint: {"x": 0.2, "top":1.4}
+        TextInput:
+            id: minute_input
+            text: "00"
+            background_color: '#282828'
+            foreground_color: (1, 1, 1, 1)
+            padding: 10,5,0,0
+            size_hint: 0.6, 0.15
+            pos_hint: {"x": 0.2, "top":0.95}
+            font_size: 15
+            input_type: "number"
+            multiline: False
+        Label:
+            text: "m"
+            pos_hint: {"x": 0.2, "top":1.4}
+        TextInput:
+            id: second_input
+            background_color: '#282828'
+            foreground_color: (1, 1, 1, 1)
+            text: "00"
+            padding: 10,5,0,0
+            size_hint: 0.6, 0.15
+            pos_hint: {"x": 0.2, "top":0.95}
+            font_size: 15
+            input_type: "number"
+            multiline: False
+        Label:
+            text: "s"
+            pos_hint: {"x": 0.2, "top":1.4}
+    BoxLayout:
+        orientation: 'horizontal'
+        pos_hint: {"x": 0, "y": 0.1}
+        Button:
+            text:'Cancel'
+            size_hint: 0.8, 0.2
+            on_release: root.exit()
+        Button:
+            text:'Save'
+            size_hint: 0.8, 0.2
+            on_release: root.create_new_activity()
+
+<NewTrainingPopup>:
+    training_name: training_name
+    error_message: error_message
+    Label:
+        pos_hint: {"x": -0.2, "top":1.4}
+        text:"Training's name :"
+    TextInput:
+        id: training_name
+        background_color: '#282828'
+        foreground_color: (1, 1, 1, 1)
+        size_hint: 1, 0.15
+        pos_hint: {"x": 0, "top":0.8}
+        font_size: 15
+        input_type: "number"
+        multiline: False
+    Label:
+        id: error_message
+        pos_hint: {"center_x": 0.5, "top":1}
+        text:''
+        color: '#FF0000'
+    BoxLayout:
+        orientation: 'horizontal'
+        pos_hint: {"x": 0, "y": 0.1}
+        Button:
+            text:'Cancel'
+            size_hint: 0.8, 0.2
+            on_release: root.exit()
+        Button:
+            text:'Save'
+            size_hint: 0.8, 0.2
+            on_release: root.create_new_training()
